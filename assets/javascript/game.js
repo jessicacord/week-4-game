@@ -66,7 +66,10 @@
                 
             }
         },
-
+        setUpGame: function(){
+            spiceRPG.createCharacters();
+            $(".character").on("click", spiceRPG.startGame);
+        },
         //When a character is selected, start and set up game
         startGame: function() {
             
@@ -141,16 +144,14 @@
             yourHP -= oppCAP;
             yourAP += yourAPRate;
 
-            if ( oppHP <= 0 ) {
+            if (yourHP <= 0) { 
+                spiceRPG.gameOver();
+            }else if ( oppHP <= 0 ) {
                 spiceRPG.defeatOpp();
             } else {
                 $("#defender-hp").text(oppHP);
                 $("#your-hp").text(yourHP); 
-            }
-
-            if (yourHP <= 0) { 
-                spiceRPG.gameOver();
-            }
+            }       
              
         },
         
@@ -188,16 +189,14 @@
             $("#attack-area").html("");
             $("#defender-title").text("");
             $("#your-character-title").text("");
-            spiceRPG.createCharacters();
+            spiceRPG.setUpGame();
 
         },
 
 
     }
 
-    spiceRPG.createCharacters();
-    
-    $(".character").on("click", spiceRPG.startGame);
+    spiceRPG.setUpGame();
 
 
     
