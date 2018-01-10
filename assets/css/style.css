@@ -1,0 +1,58 @@
+body {
+    background-image: url("../images/british-flag.jpg");
+    background-size: 100%;
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+h3 {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+.clearfix:after {
+    display: block;
+    clear: both;
+    content: "";    
+}
+
+.container {
+    width: 80%;
+    height: 570px;
+    margin: 3% 10%;
+    background: rgba(255, 0, 0, 0.5);
+
+}
+
+.character-card {
+    width: 125px;
+    height: 200px;
+    margin: 10px;
+    background: rgba(15, 88, 172, 0.623);
+    border-radius: 5px;
+}
+.character-card img {
+    width: 95%;
+    height: 140px;
+    margin: 1px;
+}
+#arena {
+    height: 250px;
+}
+.fight-space {
+    float: left;
+    width: 33%;
+}
+.enemy {
+    float: left;
+}
+
+#enemies{
+    width: 750px;
+    margin: 0px 60px;
+}
+

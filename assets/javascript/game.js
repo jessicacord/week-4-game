@@ -18,7 +18,7 @@
             healthPoints: 180,
             attackPower: 10,
             counterPower: 15,
-            photo: "images/"
+            photo: "assets/images/babyspice.jpg"
         },
         {
             idName: "ginger",
@@ -26,7 +26,7 @@
             healthPoints: 150,
             attackPower: 8,
             counterPower: 20,
-            photo: "images/"
+            photo: "assets/images/gingerspice.jpg"
         },
         {
             idName: "posh",
@@ -34,7 +34,7 @@
             healthPoints: 100,
             attackPower: 4,
             counterPower: 35,
-            photo: "images/"
+            photo: "assets/images/poshspice.jpg"
         },
         {
             idName: "scary",
@@ -42,7 +42,7 @@
             healthPoints: 140,
             attackPower: 12,
             counterPower: 10,
-            photo: "images/"
+            photo: "assets/images/scaryspice.jpg"
         },
         {
             idName: "sporty",
@@ -50,7 +50,7 @@
             healthPoints: 125,
             attackPower: 6,
             counterPower: 25,
-            photo: "images/"
+            photo: "assets/images/sportyspice.jpg"
         }
         ],
 
@@ -59,8 +59,8 @@
             for ( var i = 0; i < spiceRPG.girls.length; i++ ) {
                 
                 var newCharacter = spiceRPG.girls[i];
-                $("#characters").append($("<button>").attr("id", newCharacter.idName).attr("data-spice", i).addClass("character"));
-                $("#" + newCharacter.idName).html("<h4>" + newCharacter.fullName + "</h4>" + newCharacter.healthPoints);
+                $("#characters").append($("<button>").attr("id", newCharacter.idName).attr("data-spice", i).addClass("character character-card"));
+                $("#" + newCharacter.idName).append($("<img>").attr("src", newCharacter.photo)).append($("<h4>" + newCharacter.fullName + "</h4>").append($("<div>").attr("id", "your-hp").text(newCharacter.healthPoints)));
                 
 
                 
@@ -77,13 +77,18 @@
             yourAP = yourCharacter.attackPower;
             
             //Move character card to playing div
-            $("#your-character").html($("<button>").attr("id", yourCharacter.idName).addClass("your-character").html("<h4>" + yourCharacter.fullName + "</h4>").append($("<div>").attr("id", "your-hp").text(yourHP)));
+            $("#your-character").html($("<button>").attr("id", yourCharacter.idName).addClass("your-character character-card").append($("<img>").attr("src", yourCharacter.photo)).append($("<h4>" + yourCharacter.fullName + "</h4>").append($("<div>").attr("id", "your-hp").text(yourHP))));
+
+            $("#your-character-title").text(yourCharacter.fullName + " is going solo!");
+
+            //Edit Defender Text
+            $("#defender-title").text("Pick a girl to defend her place in the band");
 
             //Move other characters to enemy div
             for ( var i = 0; i < spiceRPG.girls.length; i++ ) {
                 if (i != $(this).attr("data-spice")){
                     var newEnemy = spiceRPG.girls[i];
-                    $("#enemies").append($("<div>").attr("id", newEnemy.idName).html($("<button>").attr("data-spice", i).addClass("enemy").html("<h4>" + newEnemy.fullName + "</h4>").append($("<div>").text(newEnemy.healthPoints))));
+                    $("#enemies").append($("<div>").attr("id", newEnemy.idName).html($("<button>").attr("data-spice", i).addClass("enemy character-card").append($("<img>").attr("src", newEnemy.photo)).append($("<h4>" + newEnemy.fullName + "</h4>").append($("<div>").text(newEnemy.healthPoints)))));
                 }
                 
             }
@@ -91,6 +96,10 @@
 
             //Remove cards from top
             $("#characters").html("");
+
+            //Add reset button
+            $("#reset-div").html($("<button>").attr("id", "reset").html("Reset"));
+            $("#reset").on("click", spiceRPG.reset);
 
         },
 
@@ -103,7 +112,13 @@
             oppCAP = opponent.counterPower;
 
             //Move character card to defender div
-            $("#defender").html($("<button>").attr("id", "enemy-" + opponent.idName).addClass("opponent").html("<h4>" + opponent.fullName + "</h4>").append($("<div>").attr("id", "defender-hp").text(oppHP)));
+            $("#defender").html($("<button>").attr("id", "enemy-" + opponent.idName).addClass("opponent character-card").append($("<img>").attr("src", opponent.photo)).append($("<h4>" + opponent.fullName + "</h4>").append($("<div>").attr("id", "defender-hp").text(oppHP))));
+
+            //Edit Defender Text
+            $("#defender-title").text(opponent.fullName + " isn't backing down!");
+
+            //Add attack button
+            $("#attack-area").html($("<button>").attr("id", "attack").html("Sing off!"));
 
             //Remove from 
             $("#" + opponent.idName).html("");
@@ -126,9 +141,6 @@
             yourHP -= oppCAP;
             yourAP += yourAPRate;
 
-            console.log(yourAP);
-            console.log(oppCAP);
-
             if ( oppHP <= 0 ) {
                 spiceRPG.defeatOpp();
             } else {
@@ -146,12 +158,15 @@
 
             $("#defender").html("");
             $("#attack").off("click");
+            
             defeats ++ ;
 
             if ( defeats === spiceRPG.girls.length - 1) {
                 $("#game-info").text("You've defeated all the other members. You are now the world's most powerful Spice Girl!")
             } else {
-                $("#game-info").text("You won! Pick a new opponent.")
+                $("#your-hp").text(yourHP);
+                $("#game-info").text("You won! Pick a new opponent.");
+                $("#defender-title").text("Pick a girl to defend her place in the band");
             }
             
 
@@ -163,9 +178,16 @@
             $("#your-character").html("");
             $("#game-info").text("You lose!")
             $("#attack").off("click");
+            $("#your-character-title").text(yourCharacter.fullName + " is out!");
         },
 
-        reset: function() {
+        reset: function() {   
+            $("#enemies").html("");
+            $("#defender").html("");
+            $("#your-character").html("");
+            $("#attack-area").html("");
+            $("#defender-title").text("");
+            $("#your-character-title").text("");
             spiceRPG.createCharacters();
 
         },
