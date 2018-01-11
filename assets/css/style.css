@@ -14,6 +14,9 @@ h3 {
     font-size: 24px;
     font-weight: bold;
 }
+h4 {
+    color: white;
+}
 .clearfix:after {
     display: block;
     clear: both;
@@ -39,6 +42,9 @@ h3 {
     width: 95%;
     height: 140px;
     margin: 1px;
+}
+button .character-card p {
+    color: white
 }
 #arena {
     height: 250px;

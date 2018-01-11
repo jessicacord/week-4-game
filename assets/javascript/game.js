@@ -15,25 +15,25 @@
         girls: [{
             idName: "baby",
             fullName: "Baby Spice",
-            healthPoints: 180,
+            healthPoints: 160,
             attackPower: 10,
-            counterPower: 15,
+            counterPower: 10,
             photo: "assets/images/babyspice.jpg"
         },
         {
             idName: "ginger",
             fullName: "Ginger Spice",
             healthPoints: 150,
-            attackPower: 8,
-            counterPower: 20,
+            attackPower: 10,
+            counterPower: 15,
             photo: "assets/images/gingerspice.jpg"
         },
         {
             idName: "posh",
             fullName: "Posh Spice",
             healthPoints: 100,
-            attackPower: 4,
-            counterPower: 35,
+            attackPower: 18,
+            counterPower: 16,
             photo: "assets/images/poshspice.jpg"
         },
         {
@@ -41,15 +41,15 @@
             fullName: "Scary Spice",
             healthPoints: 140,
             attackPower: 12,
-            counterPower: 10,
+            counterPower: 8,
             photo: "assets/images/scaryspice.jpg"
         },
         {
             idName: "sporty",
             fullName: "Sporty Spice",
             healthPoints: 125,
-            attackPower: 6,
-            counterPower: 25,
+            attackPower: 16,
+            counterPower: 16,
             photo: "assets/images/sportyspice.jpg"
         }
         ],
@@ -163,7 +163,7 @@
             defeats ++ ;
 
             if ( defeats === spiceRPG.girls.length - 1) {
-                $("#game-info").text("You've defeated all the other members. You are now the world's most powerful Spice Girl!")
+                $("#defender-title").text("You've defeated all the other members. You are now the world's most powerful Spice Girl!")
             } else {
                 $("#your-hp").text(yourHP);
                 $("#game-info").text("You won! Pick a new opponent.");
